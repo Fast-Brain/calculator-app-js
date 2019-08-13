@@ -1,19 +1,38 @@
-function add (x, y) {
-    let sum = x + y;
-    return sum
+function add (num1, num2) {
+    let sum = num1 + num2;
+    console.log(sum)
 }
 
-function subtract (x, y) {
-    let difference = x - y;
-    return difference;
+function subtract (num1, num2) {
+    let difference = num1 - num2;
+    console.log(difference)
 }
 
-function multiply (x, y) {
-    let product = x * y;
-    return product;
+function multiply (num1, num2) {
+    let product = num1 * num2;
+    console.log(product)
 }
 
-function divide (x, y) {
-    let quotient = x / y;
-    return quotient;
+function divide (num1, num2) {
+    let quotient = num1 / num2;
+    console.log(quotient)
 }
+
+function operate(operator, num1, num2) {
+    switch(operator) {
+        case '+':
+            add(num1, num2);
+            break;
+        case '-':
+            subtract(num1, num2);
+            break;
+        case 'x':
+            multiply(num1, num2);
+            break;
+        case '%':
+            divide(num1, num2)
+            break;
+    }
+}
+
+console.log(operate('%', 5, 2));
