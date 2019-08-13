@@ -19,7 +19,9 @@ body {
 #screen {
     background-color:white;
     margin:30px;
-    height:100px;
+    height:30px;
+    padding:25px;
+    font-size:25px;
 }
 #buttonsDiv {
     display:flex;
