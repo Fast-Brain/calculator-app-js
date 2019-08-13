@@ -8,4 +8,40 @@ body {
     border: 1px solid black;
     margin:0 auto;
     margin-top:2%;
+    background-color:rgb(53, 53, 117);
+}
+.btn {
+    width:85px;
+    height:75px;
+    font-size:25px;
+    padding-top:20px;
+}
+#screen {
+    background-color:white;
+    margin:30px;
+    height:100px;
+}
+#buttonsDiv {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    flex-grow:1;
+    padding-top:4%;
+    padding-bottom:4%;
+}
+#buttons button {
+    display:flex;
+    justify-content:center;
+}
+#Backspace {
+    display:flex;
+    flex-grow:1;
+    margin-left:30px;
+    justify-content:center;
+}
+#AC {
+    display:flex;
+    flex-grow:1;
+    margin-right:30px;
+    justify-content:center;
 }
