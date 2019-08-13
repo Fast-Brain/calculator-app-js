@@ -36,14 +36,16 @@ function operate(operator, num1, num2) {
 }
 
 function renderButtons() {
-    let calculatorDiv = document.getElementById('calculator');
-    let calculatorButtonNames = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    let buttonsDiv = document.getElementById('buttonsDiv');
+    let calculatorButtonNames = [1, 2, 3, '%', 4, 5, 6, '×', 7, 8, 9, '-', '.', 0, '=', '+', 'Backspace', 'AC']
     // x = 0;
     // while (x <= 9) {
         calculatorButtonNames.forEach(function(button) {
             let calculatorButton = document.createElement('button');
-            calculatorDiv.appendChild(calculatorButton);
+            buttonsDiv.appendChild(calculatorButton);
+            calculatorButton.classList.add('btn');
             calculatorButton.innerText = button;
+            calculatorButton.id = calculatorButton.innerText;
         })
     }
 // }
