@@ -35,4 +35,19 @@ function operate(operator, num1, num2) {
     }
 }
 
+function renderButtons() {
+    let calculatorDiv = document.getElementById('calculator');
+    let calculatorButtonNames = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    // x = 0;
+    // while (x <= 9) {
+        calculatorButtonNames.forEach(function(button) {
+            let calculatorButton = document.createElement('button');
+            calculatorDiv.appendChild(calculatorButton);
+            calculatorButton.innerText = button;
+        })
+    }
+// }
+
+renderButtons();
+
 console.log(operate('%', 5, 2));
