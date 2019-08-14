@@ -9,17 +9,17 @@ function add(num1, num2) {
 
 function subtract(num1, num2) {
   let difference = num1 - num2;
-  console.log(difference);
+  return difference;
 }
 
 function multiply(num1, num2) {
   let product = num1 * num2;
-  console.log(product);
+  return product;
 }
 
 function divide(num1, num2) {
   let quotient = num1 / num2;
-  console.log(quotient);
+  return quotient;
 }
 
 function operate(operator, num1, num2) {
@@ -28,13 +28,13 @@ function operate(operator, num1, num2) {
       return add(num1, num2);
       break;
     case "-":
-      subtract(num1, num2);
+      return subtract(num1, num2);
       break;
     case "x":
-      multiply(num1, num2);
+      return multiply(num1, num2);
       break;
-    case "%":
-      divide(num1, num2);
+    case "/":
+      return divide(num1, num2);
       break;
   }
 }
@@ -46,11 +46,11 @@ function renderDisplay() {
     1,
     2,
     3,
-    "%",
+    "/",
     4,
     5,
     6,
-    "×",
+    "x",
     7,
     8,
     9,
@@ -68,7 +68,7 @@ function renderDisplay() {
     calculatorButton.classList.add("btn");
     calculatorButton.innerText = button;
     // this gives the operators a shared 'operator' class
-    if (button === '+' || button === '-' || button === '×' || button === '%') {
+    if (button === '+' || button === '-' || button === 'x' || button === '/') {
         calculatorButton.classList.add("operator");
     }
     calculatorButton.id = "operator";
@@ -94,33 +94,43 @@ function populateDisplay(calculatorButtonSelector, screenSelector) {
 }
 
 function calculatorLogic(screenSelector) {
-    let equalButtonSelector = document.getElementById("=");
-    let additionButtonSelector = document.getElementById("+");
-    let clearButtonSelector = document.getElementById('AC');
-    operators = /[\+\-\*\/]/;
+  let equalButtonSelector = document.getElementById("=");
+  let additionButtonSelector = document.getElementById("+");
+  let clearButtonSelector = document.getElementById('AC');
 
     clearButtonSelector.addEventListener('click', event => {
         screenSelector.innerText = "";
         myArr = [];
     })
 
+    // fires every time the [=] button is clicked
     equalButtonSelector.addEventListener('click', event => {
+      let operators = /[\+\-\x\/]/;
+      let chosenOperator = [];
+        let operatorIdentifier = myArr.forEach(function(item) {
+          if (operators.test(item)) {
+            chosenOperator.push(item);
+          }
+        });
         separateNumbersFromOperator();
-        screenSelector.innerText = operate('+', num1, num2);
-        console.log(operate('+', num1, num2))
+        chosenOperatorString = chosenOperator.join('');
+        screenSelector.innerText = operate(chosenOperatorString, num1, num2);
+        // console.log(operate('+', num1, num2))
     })
 
-    additionButtonSelector.addEventListener('click', event => {
-        separateNumbersFromOperator();
-        console.log(screenSelector);
-        screenSelector.innerText = operate('+', num1, num2);
-        console.log(operate('+', num1, num2));
-    })
+    // additionButtonSelector.addEventListener('click', event => {
+    //     separateNumbersFromOperator();
+    //     console.log(screenSelector);
+    //     screenSelector.innerText = operate('+', num1, num2);
+    //     console.log(operate('+', num1, num2));
+    // })
 };
 
 function separateNumbersFromOperator() {
+
+
     myArr.forEach(function(item) {
-        if (item === "+" || item === "-" || item === "×" || item === "÷") {
+        if (item === "+" || item === "-" || item === "x" || item === "÷") {
             const operatorIndex = myArr.indexOf(item);
             num1 = Number(myArr.slice(0, operatorIndex).join(''));
             num2 = Number(myArr.slice(operatorIndex + 1, -1).join(''));
