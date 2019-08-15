@@ -93,11 +93,18 @@ function calculatorLogic (screenSelector) {
   const equalButtonSelector = document.getElementById('=')
   const clearButtonSelector = document.getElementById('AC')
   const backspaceButtonSelector = document.getElementById('Backspace')
-  // make into function
-  // const operatorIdentifier = myArr.forEach(function (item) {
-  //   if (operators.test(item)) {
-  //     chosenOperator.push(item)
+  const plusButtonSelector = document.getElementById('+');
+  let clicked = "false";
+  console.log(myArr);
+
+
+  // next: allow the plus button to "chain" answers
+
+  // plusButtonSelector.addEventListener('click', event => {
+  //   if (clicked === true) {
+  //     calculateAnswer(screenSelector);
   //   }
+  //   clicked = true;
   // })
 
   backspaceButtonSelector.addEventListener('click', event => {
@@ -111,12 +118,27 @@ function calculatorLogic (screenSelector) {
   })
 
   equalButtonSelector.addEventListener('click', event => {
-    operatorIdentifier()
-    separateNumbersFromOperator()
-
-    // const chosenOperatorString = chosenOperator.join('')
-    // screenSelector.innerText = operate(chosenOperatorString, num1, num2)
+    calculateAnswer(screenSelector)
   })
+}
+
+// calculates for the answer, this is basically the "equals" function
+function calculateAnswer (screenSelector) {
+  operatorIdentifier()
+  console.log("operatorIdentifier is " + operatorIdentifier());
+  separateNumbersFromOperator()
+  console.log("numbers are + " + separateNumbersFromOperator())
+  const chosenOperator = operatorIdentifier()
+  let answer = operate(chosenOperator, num1, num2);
+  console.log("answer is " + answer)
+  console.log(operatorIdentifier())
+  // only clear the array when an answer is generated
+  if (answer != 'undefined') {
+  screenSelector.innerText = answer;
+  myArr = [];
+  }
+  console.log(myArr);
+  myArr.push(answer.toString())
 }
 
 // identifies & returns the operator being used
@@ -128,15 +150,17 @@ function operatorIdentifier () {
         chosenOperator.push(item)
       }
     })
-    return chosenOperator
+    return chosenOperator.join()
 }
 
+// separates the numbers on each side of the equation
 function separateNumbersFromOperator () {
   myArr.forEach(function (item) {
     if (item === '+' || item === '-' || item === 'x' || item === '÷') {
       const operatorIndex = myArr.indexOf(item)
       num1 = Number(myArr.slice(0, operatorIndex).join(''))
       num2 = Number(myArr.slice(operatorIndex + 1, -1).join(''))
+      console.log(num1, num2);
       calculatorLogic()
     }
   })
