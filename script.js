@@ -93,6 +93,12 @@ function calculatorLogic (screenSelector) {
   const equalButtonSelector = document.getElementById('=')
   const clearButtonSelector = document.getElementById('AC')
   const backspaceButtonSelector = document.getElementById('Backspace')
+  // make into function
+  // const operatorIdentifier = myArr.forEach(function (item) {
+  //   if (operators.test(item)) {
+  //     chosenOperator.push(item)
+  //   }
+  // })
 
   backspaceButtonSelector.addEventListener('click', event => {
     myArr.splice(-1, 1)
@@ -105,17 +111,24 @@ function calculatorLogic (screenSelector) {
   })
 
   equalButtonSelector.addEventListener('click', event => {
-    const operators = /[\+\-\x\/]/
-    const chosenOperator = []
-    const operatorIdentifier = myArr.forEach(function (item) {
+    operatorIdentifier()
+    separateNumbersFromOperator()
+
+    // const chosenOperatorString = chosenOperator.join('')
+    // screenSelector.innerText = operate(chosenOperatorString, num1, num2)
+  })
+}
+
+// identifies & returns the operator being used
+function operatorIdentifier () {
+  const operators = /[\+\-\x\/]/
+  const chosenOperator = []
+    myArr.forEach(function (item) {
       if (operators.test(item)) {
         chosenOperator.push(item)
       }
     })
-    separateNumbersFromOperator()
-    const chosenOperatorString = chosenOperator.join('')
-    screenSelector.innerText = operate(chosenOperatorString, num1, num2)
-  })
+    return chosenOperator
 }
 
 function separateNumbersFromOperator () {
