@@ -80,7 +80,9 @@ function populateDisplay (calculatorButtonSelector, screenSelector) {
   console.log(calculatorButtonSelector)
   calculatorButtonSelector.forEach(button => {
     button.addEventListener('click', event => {
-      myArr.push(event.target.id)
+      if (event.target.id !== 'Backspace') {
+        myArr.push(event.target.id)
+      }
       screenSelector.innerText += event.target.id
       console.log(myArr)
     })
@@ -89,17 +91,18 @@ function populateDisplay (calculatorButtonSelector, screenSelector) {
 
 function calculatorLogic (screenSelector) {
   const equalButtonSelector = document.getElementById('=')
-  const additionButtonSelector = document.getElementById('+')
   const clearButtonSelector = document.getElementById('AC')
+  const backspaceButtonSelector = document.getElementById('Backspace')
 
-  clearButtonSelector.addEventListener('click', event => {
-    screenSelector.innerText = ''
-    myArr = []
+  backspaceButtonSelector.addEventListener('click', event => {
+    myArr.splice(-1, 1)
+    screenSelector.innerText = myArr.join('')
   })
 
-  function calculate () {
-
-  }
+  clearButtonSelector.addEventListener('click', event => {
+    screenSelector.innerText = ' '
+    myArr = []
+  })
 
   equalButtonSelector.addEventListener('click', event => {
     const operators = /[\+\-\x\/]/
