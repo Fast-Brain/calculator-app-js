@@ -20,7 +20,7 @@ body {
     background-color:white;
     margin:30px;
     height:30px;
-    padding:25px;
+    padding:25px 25px 25px 25px;
     font-size:25px;
 }
 #buttonsDiv {
@@ -46,4 +46,12 @@ body {
     flex-grow:1;
     margin-right:30px;
     justify-content:center;
+}
+#opTracker {
+    font-size:15px;
+    font-family:sans-serif;
+    font-weight:bold;
+    float:right;
+    margin-right:50px;
+    margin-bottom:20px;
 }
