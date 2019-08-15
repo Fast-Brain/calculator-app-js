@@ -37,6 +37,7 @@ function operate (operator, num1, num2) {
 
 function renderDisplay () {
   const screenSelector = document.getElementById('screen')
+  const opTracker = document.getElementById('opTracker');
   const buttonsDiv = document.getElementById('buttonsDiv')
   const calculatorButtonNames = [
     1,
@@ -72,18 +73,52 @@ function renderDisplay () {
     calculatorButton.id = calculatorButton.innerText
   })
   const calculatorButtonSelector = document.querySelectorAll('.btn')
-  populateDisplay(calculatorButtonSelector, screenSelector)
+  populateDisplay(calculatorButtonSelector, screenSelector, opTracker)
   calculatorLogic(screenSelector)
 }
 
-function populateDisplay (calculatorButtonSelector, screenSelector) {
+function populateDisplay (calculatorButtonSelector, screenSelector, opTracker) {
   console.log(calculatorButtonSelector)
   calculatorButtonSelector.forEach(button => {
     button.addEventListener('click', event => {
-      if (event.target.id !== 'Backspace') {
-        myArr.push(event.target.id)
+      switch (event.target.id) {
+        case '=':
+          myArr.push(event.target.id)
+          calculateAnswer(screenSelector)
+          break
+        case '+':
+          myArr.push(event.target.id)
+          calculateAnswer(screenSelector)
+        default:
+          screenSelector.innerText += event.target.id
+          myArr.push(event.target.id);
+          break
       }
-      screenSelector.innerText += event.target.id
+
+
+
+      // switch (event.target.id) {
+      //   case 'Backspace' || '=':
+      //     console.log("Backspace!");
+      //     return;
+      //   case '+':
+      //     console.log("Plus!");
+      //     // opTracker.innerText += screenSelector.innerText + event.target.id;
+      //     screenSelector.innerText += event.target.id
+      //     myArr.push(event.target.id)
+      //     break;
+      //   case '=':
+      //     calculateAnswer(screenSelector)
+      //     break;
+      //   default:
+
+      // }
+
+
+      //switch statement here instead?
+      // if (event.target.id !== 'Backspace') {
+      //   myArr.push(event.target.id)
+      // }
       console.log(myArr)
     })
   })
@@ -101,10 +136,8 @@ function calculatorLogic (screenSelector) {
   // next: allow the plus button to "chain" answers
 
   // plusButtonSelector.addEventListener('click', event => {
-  //   if (clicked === true) {
+  //     console.log(event.target.id);
   //     calculateAnswer(screenSelector);
-  //   }
-  //   clicked = true;
   // })
 
   backspaceButtonSelector.addEventListener('click', event => {
@@ -117,17 +150,17 @@ function calculatorLogic (screenSelector) {
     myArr = []
   })
 
-  equalButtonSelector.addEventListener('click', event => {
-    calculateAnswer(screenSelector)
-  })
+  // equalButtonSelector.addEventListener('click', event => {
+  //   calculateAnswer(screenSelector)
+  // })
 }
 
 // calculates for the answer, this is basically the "equals" function
 function calculateAnswer (screenSelector) {
   operatorIdentifier()
-  console.log("operatorIdentifier is " + operatorIdentifier());
+  //console.log("operatorIdentifier is " + operatorIdentifier());
   separateNumbersFromOperator()
-  console.log("numbers are + " + separateNumbersFromOperator())
+  // I think this will always return undefined: console.log("numbers are " + separateNumbersFromOperator())
   const chosenOperator = operatorIdentifier()
   let answer = operate(chosenOperator, num1, num2);
   console.log("answer is " + answer)
@@ -136,15 +169,16 @@ function calculateAnswer (screenSelector) {
   if (answer != 'undefined') {
   screenSelector.innerText = answer;
   myArr = [];
+  myArr.push(answer.toString())
   }
   console.log(myArr);
-  myArr.push(answer.toString())
 }
 
 // identifies & returns the operator being used
 function operatorIdentifier () {
   const operators = /[\+\-\x\/]/
   const chosenOperator = []
+  // make sure chosenOperator can't store more than 1 operator!
     myArr.forEach(function (item) {
       if (operators.test(item)) {
         chosenOperator.push(item)
@@ -161,7 +195,7 @@ function separateNumbersFromOperator () {
       num1 = Number(myArr.slice(0, operatorIndex).join(''))
       num2 = Number(myArr.slice(operatorIndex + 1, -1).join(''))
       console.log(num1, num2);
-      calculatorLogic()
+      return num1, num2, calculatorLogic()
     }
   })
 }
