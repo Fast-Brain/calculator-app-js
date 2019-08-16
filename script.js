@@ -1,9 +1,7 @@
-
 const isOp = /[\-\+\*\/]/
 let myArr = [];
 let numString = "";
-let num1 = undefined;
-let num2 = undefined;
+let num1, num2 = undefined;
 
 function add(num1, num2) {
   const sum = num1 + num2;
@@ -60,11 +58,8 @@ function calculatorLogic(calculatorButtonSelector, screenSelector, opTracker) {
           calculateAnswer(screenSelector);
           break;
         case "+":
-          calculateAnswer(screenSelector);
         case "-":
-          calculateAnswer(screenSelector);
         case "*":
-          calculateAnswer(screenSelector);
         case "/":
           calculateAnswer(screenSelector);
         default:
