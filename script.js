@@ -38,40 +38,6 @@ function operate (operator, num1, num2) {
 function renderDisplay () {
   const screenSelector = document.getElementById('screen')
   const opTracker = document.getElementById('opTracker');
-  const buttonsDiv = document.getElementById('buttonsDiv')
-  const calculatorButtonNames = [
-    1,
-    2,
-    3,
-    '/',
-    4,
-    5,
-    6,
-    'x',
-    7,
-    8,
-    9,
-    '-',
-    '.',
-    0,
-    '=',
-    '+',
-    'Backspace',
-    'AC'
-  ]
-
-  calculatorButtonNames.forEach(function (button) {
-    const calculatorButton = document.createElement('button')
-    buttonsDiv.appendChild(calculatorButton)
-    calculatorButton.classList.add('btn')
-    calculatorButton.innerText = button
-    // this gives the operators a shared 'operator' class
-    if (button === '+' || button === '-' || button === 'x' || button === '/') {
-      calculatorButton.classList.add('operator')
-    }
-    calculatorButton.id = 'operator'
-    calculatorButton.id = calculatorButton.innerText
-  })
   const calculatorButtonSelector = document.querySelectorAll('.btn')
   populateDisplay(calculatorButtonSelector, screenSelector, opTracker)
   calculatorLogic(screenSelector)
@@ -89,36 +55,14 @@ function populateDisplay (calculatorButtonSelector, screenSelector, opTracker) {
         case '+':
           myArr.push(event.target.id)
           calculateAnswer(screenSelector)
+        case '-':
+          myArr.push(event.target.id)
+          calculateAnswer(screenSelector)
         default:
           screenSelector.innerText += event.target.id
           myArr.push(event.target.id);
           break
       }
-
-
-
-      // switch (event.target.id) {
-      //   case 'Backspace' || '=':
-      //     console.log("Backspace!");
-      //     return;
-      //   case '+':
-      //     console.log("Plus!");
-      //     // opTracker.innerText += screenSelector.innerText + event.target.id;
-      //     screenSelector.innerText += event.target.id
-      //     myArr.push(event.target.id)
-      //     break;
-      //   case '=':
-      //     calculateAnswer(screenSelector)
-      //     break;
-      //   default:
-
-      // }
-
-
-      //switch statement here instead?
-      // if (event.target.id !== 'Backspace') {
-      //   myArr.push(event.target.id)
-      // }
       console.log(myArr)
     })
   })
@@ -149,16 +93,12 @@ function calculatorLogic (screenSelector) {
     screenSelector.innerText = ' '
     myArr = []
   })
-
-  // equalButtonSelector.addEventListener('click', event => {
-  //   calculateAnswer(screenSelector)
-  // })
 }
 
 // calculates for the answer, this is basically the "equals" function
 function calculateAnswer (screenSelector) {
   operatorIdentifier()
-  //console.log("operatorIdentifier is " + operatorIdentifier());
+  console.log("operatorIdentifier is " + operatorIdentifier());
   separateNumbersFromOperator()
   // I think this will always return undefined: console.log("numbers are " + separateNumbersFromOperator())
   const chosenOperator = operatorIdentifier()
@@ -178,12 +118,20 @@ function calculateAnswer (screenSelector) {
 function operatorIdentifier () {
   const operators = /[\+\-\x\/]/
   const chosenOperator = []
-  // make sure chosenOperator can't store more than 1 operator!
+  console.log(chosenOperator);
     myArr.forEach(function (item) {
       if (operators.test(item)) {
         chosenOperator.push(item)
       }
     })
+    // if someone uses the same operator twice in a row, remove the last operator so there's one
+    if (chosenOperator.length == 2 && chosenOperator[0] == chosenOperator[1]) {
+      chosenOperator.pop()
+      // if someone uses two different operators in the same equation - not sure what to do here
+    } else if (chosenOperator.length == 2 && chosenOperator[0] != chosenOperator[1]) {
+      console.log("my chosen Operator is " + chosenOperator)
+    }
+    //console.log('length is' + chosenOperator.length)
     return chosenOperator.join()
 }
 
