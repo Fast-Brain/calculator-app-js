@@ -43,6 +43,7 @@ function renderDisplay () {
 }
 
 function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
+  let decimalAfterOp = false;
   calculatorButtonSelector.forEach(button => {
     button.addEventListener('click', event => {
       switch (event.target.id) {
@@ -67,21 +68,27 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
           screenSelector.innerText += event.target.id
           break
         case '.':
-          // one decimal on each side of operator
-          // if (!numString.includes(event.target.id)) {
-          //   numString += event.target.id
-          //   screenSelector.innerText += event.target.id
-          // }
-          numString += event.target.id
-          screenSelector.innerText += event.target.id
+          if (decimalAfterOp != true) {
+            if (numString.match(isOp)) {
+              decimalAfterOp = true
+              console.log(decimalAfterOp)
+              console.log("operator included")
+              numString += event.target.id
+              screenSelector.innerText += event.target.id
+              return
+            } else if (!numString.includes(event.target.id)) {
+              numString += event.target.id
+              screenSelector.innerText += event.target.id
+            }
+          }
           break
         default:
           screenSelector.innerText += event.target.id
           numString += event.target.id
-          console.log(numString)
           break
       }
-    })
+    
+      console.log("numString is " + numString); })
   })
 }
 
