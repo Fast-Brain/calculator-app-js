@@ -37,12 +37,11 @@ function operate (operator, num1, num2) {
 
 function renderDisplay () {
   const screenSelector = document.getElementById('screen')
-  const opTracker = document.getElementById('opTracker')
   const calculatorButtonSelector = document.querySelectorAll('.btn')
-  calculatorLogic(calculatorButtonSelector, screenSelector, opTracker)
+  calculatorLogic(calculatorButtonSelector, screenSelector)
 }
 
-function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
+function calculatorLogic (calculatorButtonSelector, screenSelector) {
   let decimalAfterOp = false
   calculatorButtonSelector.forEach(button => {
     button.addEventListener('click', event => {
@@ -56,7 +55,6 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
           screenSelector.innerText = numString
           break
         case '=':
-          console.log(event.target.id)
           calculateAnswer(screenSelector)
           break
         case '+':
@@ -71,8 +69,6 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
           if (decimalAfterOp !== true) {
             if (numString.match(isOp)) {
               decimalAfterOp = true
-              console.log(decimalAfterOp)
-              console.log('operator included')
               numString += event.target.id
               screenSelector.innerText += event.target.id
               return
@@ -87,8 +83,6 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
           numString += event.target.id
           break
       }
-
-      console.log('numString is ' + numString) 
     })
   })
 }
@@ -96,8 +90,6 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
 function calculateAnswer (screenSelector) {
   separateNumbersFromOperator()
   const chosenOperator = operatorIdentifier()
-  console.log('chosenOperator is ' + chosenOperator)
-  console.log('num1 is ' + num1 + ' and num2 is ' + num2)
   if (chosenOperator !== undefined && chosenOperator.length === 1) {
     const answer = operate(chosenOperator, num1, num2)
     screenSelector.innerText = answer
