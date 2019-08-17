@@ -4,22 +4,22 @@ let num1; let num2
 
 function add (num1, num2) {
   const sum = num1 + num2
-  return sum
+  return Math.round(sum * 100) / 100
 }
 
 function subtract (num1, num2) {
   const difference = num1 - num2
-  return difference
+  return Math.round(difference * 100) / 100
 }
 
 function multiply (num1, num2) {
   const product = num1 * num2
-  return product
+  return Math.round(product * 100) / 100
 }
 
 function divide (num1, num2) {
   const quotient = num1 / num2
-  return quotient
+  return Math.round(quotient * 100) / 100
 }
 
 function operate (operator, num1, num2) {
@@ -43,7 +43,7 @@ function renderDisplay () {
 }
 
 function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
-  let decimalAfterOp = false;
+  let decimalAfterOp = false
   calculatorButtonSelector.forEach(button => {
     button.addEventListener('click', event => {
       switch (event.target.id) {
@@ -68,11 +68,11 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
           screenSelector.innerText += event.target.id
           break
         case '.':
-          if (decimalAfterOp != true) {
+          if (decimalAfterOp !== true) {
             if (numString.match(isOp)) {
               decimalAfterOp = true
               console.log(decimalAfterOp)
-              console.log("operator included")
+              console.log('operator included')
               numString += event.target.id
               screenSelector.innerText += event.target.id
               return
@@ -87,16 +87,17 @@ function calculatorLogic (calculatorButtonSelector, screenSelector, opTracker) {
           numString += event.target.id
           break
       }
-    
-      console.log("numString is " + numString); })
+
+      console.log('numString is ' + numString) 
+    })
   })
 }
 
 function calculateAnswer (screenSelector) {
   separateNumbersFromOperator()
   const chosenOperator = operatorIdentifier()
-  console.log("chosenOperator is " + chosenOperator)
-  console.log("num1 is " + num1 + " and num2 is " + num2)
+  console.log('chosenOperator is ' + chosenOperator)
+  console.log('num1 is ' + num1 + ' and num2 is ' + num2)
   if (chosenOperator !== undefined && chosenOperator.length === 1) {
     const answer = operate(chosenOperator, num1, num2)
     screenSelector.innerText = answer
