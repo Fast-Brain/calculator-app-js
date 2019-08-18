@@ -1,6 +1,5 @@
 const isOp = /[\-\+\*\/]/
 let numString = ''
-let num1; let num2
 
 function add (num1, num2) {
   const sum = num1 + num2
@@ -71,7 +70,6 @@ function calculatorLogic (calculatorButtonSelector, screenSelector) {
               decimalAfterOp = true
               numString += event.target.id
               screenSelector.innerText += event.target.id
-              return
             } else if (!numString.includes(event.target.id)) {
               numString += event.target.id
               screenSelector.innerText += event.target.id
@@ -86,7 +84,6 @@ function calculatorLogic (calculatorButtonSelector, screenSelector) {
     })
   })
 }
-
 function calculateAnswer (screenSelector) {
   separateNumbersFromOperator()
   const chosenOperator = operatorIdentifier()
